@@ -2,13 +2,19 @@ import java.lang.Math;
 import java.util.Scanner;
 public class Main{
   public static void main(String[] args){
+    double distance = 0;
+    for(int j = 0;j < 12;j++)
+        distance += totalDist();
+    System.out.printf("Total Distance Travelled: ~%.2f kilometers",distance);
+  }
+  public static double totalDist(){
     String[] a = userInteraction();
     String[] b = userInteraction();
     double x = coordToDouble(a[0]);
     double y = coordToDouble(a[1]);
     double z = coordToDouble(b[0]);
     double w = coordToDouble(b[1]);
-    calcDist(x,y,z,w);
+    return calcDist(x,y,z,w);
   }
   public static String[] userInteraction(){
     System.out.println("Enter Longitude in DMS Format:");
@@ -59,7 +65,7 @@ public class Main{
     double ans = dega + (mina/60.0) + (seca/(3600.0));
     return ans;
   }
-  public static void calcDist(double x, double y, double z, double w){
+  public static double calcDist(double x, double y, double z, double w){
     double r = 6371;
     x = x/180*Math.PI;
     y = y/180*Math.PI;
@@ -72,7 +78,8 @@ public class Main{
 	double e = c + (Math.cos(y)*Math.cos(w)*d);
     double f = 2 * Math.atan2(Math.sqrt(e),Math.sqrt(1-e));
     double g = r * f;
-    System.out.printf("The distance between the two points is ~%.2f kilometers.",g); 
+    System.out.printf("The distance between the two points is ~%.2f kilometers.\n",g);
+    return g;
   }
 }
 /*Results of tracking distance travelled by Hurricane Gloria over a 13 day period:
